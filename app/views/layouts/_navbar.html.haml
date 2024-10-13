@@ -1,0 +1,18 @@
+%nav.navbar.navbar-expand-lg.bg-dark-subtle.shadow-sm
+  .container.align-items-center
+    .d-flex
+      = link_to 'Turbo Books', root_path, class: 'navbar-brand'
+      %ul.navbar-nav
+        %li.nav-item= link_to 'Books', [:books], class: 'nav-link'
+        %li.nav-item= link_to 'Authors', [:authors], class: 'nav-link'
+    %pre#requestLog.text-danger.m-0{ data: { turbo_observer_target: "requestLog", turbo_permanent: "true" } }
+    .d-flex.gap-2
+      .form-check.form-switch
+        %input#turbo_outline.form-check-input{ type: "checkbox",
+                                                role: "switch",
+                                                data: { turbo_permanent: "true", # Keep state
+                                                        controller: "turbo-outline",
+                                                        action: "click->turbo-outline#toggle turbo:load@document->turbo-outline#toggle" } }
+        %label.form-check-label{ for: "turbo_outline" } Outline Turbo Frames
+      = link_to [:help, page: "turbo_outline"], data: { turbo_frame: "help" } do
+        %i.bi.bi-info-circle

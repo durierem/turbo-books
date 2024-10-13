@@ -1,0 +1,33 @@
+= content_for :help do
+  %h2.mb-3 Innline edit & destroy
+
+  .mb-3
+    %h4 Turbo Frame
+
+    %p
+      <b>Each row</b> of this table is wrapped in a <code>turbo-frame</code>. The "edit" and
+      "destroy" actions both render a single <code>turbo-frame</code> element that wraps the
+      response (the edit form or nothing).
+
+    %p
+      For the inline form, the "update" action <b>renders the books index</b>. Since the navigation
+      is scoped to the book's own frame, only this one is picked up by Turbo and the rest of the page
+      is left untouched. The "cancel" actions works the same way.
+
+    %p
+      Note that we could render inline results the same way we did for the "edit" and "destroy"
+      actions to spend less resources on the server, but I wanted to showcase the
+      <b>progressively enhanced</b> Turbo way.
+
+  .mb-3
+    %h4 State persistence
+
+    %p
+      We don't want the inline form to go away when the user is redirected from another frame, for
+      example when creating a new book from the canvas. Each frame has a <code>data-tubo-permanent</code>
+      attribute that tells Turbo not to replace it when navigating.
+
+    %p
+      Relevant documentation:
+      %ul
+        %li= link_to "Persisting Elements Across Page Loads", "https://turbo.hotwired.dev/handbook/building#persisting-elements-across-page-loads", target: "_blank"

@@ -1,0 +1,11 @@
+= turbo_frame_tag @book do
+  = form_for @book do |f|
+    .row.d-flex.align-items-center.border-bottom.py-2
+      .col.fw-bold= @book.id
+      .col
+        = f.text_field :name, class: 'form-control'
+      .col
+        = f.collection_select :author_id, @authors, :id, :name, {}, { class: 'form-select' }
+      .col
+        = link_to 'Cancel', [:books], class: 'btn btn-sm btn-outline-secondary'
+        = f.submit class: 'btn btn-sm btn-primary'

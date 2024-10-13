@@ -1,0 +1,75 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+/* CANVAS DRAWER */
+#canvas {
+  transition: width .15s ease-in-out;
+  width: 0;
+}
+
+#canvas:has(.canvas-body),
+#canvas[aria-busy] {
+  width: 450px;
+}
+
+#canvas .canvas-body {
+  overflow-x: hidden;
+  min-width: max-content;
+}
+
+/* HELP DRAWER */
+
+#help {
+  transition: width .15s ease-in-out;
+  width: 0;
+  position: fixed;
+}
+
+#help:has(.help-body),
+#help[aria-busy] {
+  width: 60ch;
+}
+
+#help .help-body {
+  overflow-x: hidden;
+}
+
+/* TURBO FRAME OUTLINES */
+
+.turbo-outline turbo-frame {
+  display: block;
+  width: stretch;
+  width: -moz-available;
+  height: stretch;
+  height: -moz-available;
+  outline: 1px solid #e00;
+}
+
+.turbo-outline turbo-frame:hover::before {
+  content: '' attr(id) ' (' attr(src) ')';
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0.25rem;
+  background: #e00;
+  color: white;
+  font-size: small;
+}
+
+.turbo-outline turbo-frame {
+  min-width: 48px;
+  min-height: 10px;
+}

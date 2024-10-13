@@ -1,0 +1,46 @@
+= content_for :help do
+  %h2.mb-3 Canvas
+
+  .mb-3
+    %em
+      Note that the "Help" drawer that you are currently reading also uses the techniques described
+      below. The only notable difference being the presence of a <code>data-turbo-permanent</code>
+      atribute to keep the drawer opened during navigation.
+
+  .mb-3
+    %h4 Layout & navigation
+    %p
+      In order to open the canvas, <code>a</code> or <code>form</code> elements <b>target</b> their
+      navigation to the canvas' frame with <code>data-turbo-frame="canvas"</code>. The response is rendered
+      with a <b>specific layout</b>: <code>render "something", layout: "canvas"</code> enabling the response
+      template to only handle the content within the canvas.
+
+    %h4 Resourceful routing
+    %p
+      The canvas can be closed via a <code>DELETE /canvas</code> request. The response renders an empty canvas.
+
+  .mb-3
+    %h4 Turbo Frame & CSS
+    %p
+      The canvas is a <code>turbo-frame</code> with no content by default. It's always there, either
+      empty or displaying content. The <code>has()</code> CSS selector enables applying styles based
+      on the canvas' content. See <code>app/assets/stylesheets/application.css</code>
+
+  .mb-5
+    %h4 Morphing
+    %p
+      Turbo 8 turbocharged (pun intended) Turbo Frames by pairing them with the
+      <a href="https://github.com/bigskysoftware/idiomorph" target="_blank">Idiomorph</a> morphing library.
+      Upon Turbo navigation, instead of completely replacing the <code>body</code> element, morphing
+      only replaces the content that changed, providing a smooth navigation feeling.
+    %p
+      Morphing is enabled via the <code>meta name="turbo-refresh-method" content="morph"</code> meta attribute.
+    %p
+      Why is it important for the canvas? Consider the "Create Book" action within the canvas:
+      the response is the books index with an empty canvas. Without morphing, the canvas's frame would
+      be completely <b>replaced</b> by a new one, losing CSS transitions states for example. Morphing
+      replaces the content <b>in place</b> giving a smoother transition since the DOM element is the same.
+    %p
+      Relevant documentation:
+      %ul
+        %li= link_to "Smooth page refreshes with morphing", "https://turbo.hotwired.dev/handbook/page_refreshes#morphing", target: "_blank"

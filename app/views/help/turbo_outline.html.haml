@@ -1,0 +1,32 @@
+= content_for :help do
+  .mb-3
+    %h2 Turbo Frame outlines
+    %p
+      This feature highlights all <code>turbo-frame</code> elements on the page. Frames that would
+      normally be invisibles are also made somewhat visible. Upon hovering the frame, its
+      <code>id</code> and current <code>src</code> attributes are visibles on the top left corner of
+      the screen. Turn it on and see what happens when you create, edit and delete books!
+
+  .mb-3
+    %h4 Stimulus controller
+    %p
+      This feature uses the <code>turbo_outline_stimulus.js</code> controller which toggles the
+      <code>.turbo-outline</code> class on the <code>body</code> element.
+
+  .mb-3
+    %h4 State persistence
+    %p
+      There are 2 methods involved for not losing the state. The first one is a simple
+      <code>data-turbo-permanent="true"</code> attribute that tells Turbo to keep the checkbox state
+      between page refreshes.
+
+    %p
+      While this works for the checkbox itself, it doesn't prevent the <code>.turbo-outline</code>
+      class on the <code>body</code> element to disapear. To prevent that, we also listen to the
+      <code>turbo:load</code> event to set the class back if it's needed.
+
+    %p
+      Relevant documentation:
+      %ul
+        %li= link_to "Events turbo:load", "https://turbo.hotwired.dev/reference/events#turbo%3Aload", target: "_blank"
+        %li= link_to "Persisting Elements Across Page Loads", "https://turbo.hotwired.dev/handbook/building#persisting-elements-across-page-loads", target: "_blank"

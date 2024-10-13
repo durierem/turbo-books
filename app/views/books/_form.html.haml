@@ -1,0 +1,11 @@
+= form_for book, data: { turbo_frame: '_top' } do |f|
+  .mb-3
+    = f.label :name, class: 'form-label'
+    = f.text_field :name, class: 'form-control', required: true
+
+  .mb-3
+    = f.label :author_id, class: 'form-label'
+    = f.collection_select :author_id, @authors, :id, :name, {}, { class: 'form-select' }
+
+  .d-flex.gap-2
+    = f.submit class: 'btn btn-primary'

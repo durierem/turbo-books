@@ -1,0 +1,26 @@
+%section.container
+  %h1.mb-3 Books
+
+  .mb-3
+    .row.fw-bold.border-bottom
+      .col ID
+      .col Name
+      .col Author
+      .col.gap-2
+        Actions
+        = link_to [:help, page: "inline"], data: { turbo_frame: "help" } do
+          %i.bi.bi-info-circle
+    - @books.each do |book|
+      = turbo_frame_tag book, data: { turbo_permanent: true } do
+        .row.d-flex.border-bottom.py-3
+          .col.fw-bold= book.id
+          .col= book.name
+          .col= book.author.name
+          .col.d-flex.gap-2
+            = link_to "edit", [:edit, book], class: "link-primary"
+            = link_to "delete", [book], class: "link-danger", data: { turbo_method: "delete" }
+
+  .d-flex.w-100.align-items-center.justify-content-end.gap-2
+    = link_to "New book", [:new, :book], data: { turbo_frame: "canvas" }, class: "btn btn-sm btn-primary"
+    = link_to [:help, page: "canvas"], data: { turbo_frame: "help" } do
+      %i.bi.bi-info-circle
