@@ -1,0 +1,8 @@
+= form_with model: book_draft, data: { turbo_frame: '_top' } do |f|
+  = f.hidden_field :step, value: 3
+  .mb-3
+    = f.label :shelf_id, class: 'form-label'
+    = f.collection_select :shelf_id, Shelf.all, :id, :name, {}, { class: 'form-select' }
+  .mb-3.d-flex.justify-content-between
+    = link_to "Previous",  [ :edit, @book_draft, step: 2 ], class: "btn btn-sm btn-secondary"
+    = f.submit "Create book", class: "btn btn-sm btn-primary"

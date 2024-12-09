@@ -6,6 +6,7 @@
       .col ID
       .col Name
       .col Author
+      .col Shelf
       .col.gap-2
         Actions
         = link_to [:help, page: "inline"], data: { turbo_frame: "help" } do
@@ -16,11 +17,13 @@
           .col.fw-bold= book.id
           .col= book.name
           .col= book.author.name
+          .col
+            %span.badge.text-bg-primary= book.shelf.name
           .col.d-flex.gap-2
             = link_to "edit", [:edit, book], class: "link-primary"
             = link_to "delete", [book], class: "link-danger", data: { turbo_method: "delete" }
 
   .d-flex.w-100.align-items-center.justify-content-end.gap-2
-    = link_to "New book", [:new, :book], data: { turbo_frame: "canvas" }, class: "btn btn-sm btn-primary"
+    = link_to "New book", [:new, :book_draft], data: { turbo_frame: "canvas" }, class: "btn btn-sm btn-primary"
     = link_to [:help, page: "canvas"], data: { turbo_frame: "help" } do
       %i.bi.bi-info-circle
