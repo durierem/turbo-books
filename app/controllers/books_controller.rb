@@ -17,7 +17,6 @@ class BooksController < ApplicationController
 
   def edit
     @book = Book.find(params[:id])
-    @authors = Author.all
   end
 
   def update
@@ -34,6 +33,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:name, :author_id)
+    params.require(:book).permit(:name, :author_id, :shelf_id)
   end
 end

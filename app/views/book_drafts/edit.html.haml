@@ -1,0 +1,3 @@
+= content_for :canvas do
+  %h1 New book
+  = render "step_#{params[:step] || @book_draft.next_step}", book_draft: @book_draft
