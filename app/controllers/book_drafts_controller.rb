@@ -8,9 +8,9 @@ class BookDraftsController < ApplicationController
     @book_draft = Book::Draft.new(book_draft_params)
 
     if @book_draft.save(context: :step_1)
-      redirect_to [ :edit, @book_draft, step: 2 ]
+      redirect_to [ :edit, @book_draft ]
     else
-      render :new, layout: "canvas"
+      render :new, layout: "canvas", status: :unprocessable_entity
     end
   end
 
@@ -22,16 +22,17 @@ class BookDraftsController < ApplicationController
   def update
     @book_draft = Book::Draft.find(params[:id])
 
-    @book_draft.update!(book_draft_params)
-
-    if @book_draft.completed?
-      @book_draft.book.save!
-      redirect_to [ :books ] and return
+    @book_draft.attributes = book_draft_params
+    if @book_draft.save(context: :"step_#{@book_draft.step}")
+      if @book_draft.completed?
+        @book_draft.book.save!
+        redirect_to_out_of_frame([ :books ])
+      else
+        redirect_to [ :edit, @book_draft ]
+      end
     else
-      redirect_to [ :edit, @book_draft, step: @book_draft.next_step ] and return
+      render :edit, layout: "canvas", status: :unprocessable_entity
     end
-
-    render :edit, layout: "canvas"
   end
 
   private
