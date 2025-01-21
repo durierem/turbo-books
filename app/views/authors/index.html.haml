@@ -1,4 +1,18 @@
 %section.container
   %h1.mb-3 Authors
-  - @authors.each do |author|
-    %pre= author.inspect
+
+  .mb-3
+    .row.fw-bold.border-bottom
+      .col ID
+      .col Name
+      .col.gap-2
+        Actions
+    - @authors.each do |author|
+      .row.d-flex.border-bottom.py-3
+        .col.fw-bold= author.id
+        .col= author.name
+        .col.d-flex.gap-2
+          = link_to "edit", [:edit, author], class: "link-primary"
+
+  .d-flex.w-100.align-items-center.justify-content-end.gap-2
+    = link_to "New author", [:new, :author], class: "btn btn-sm btn-primary"
