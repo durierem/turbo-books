@@ -14,7 +14,10 @@ class AuthorsController < ApplicationController
   def create
     @author = Author.new(author_params)
     if @author.save
-      redirect_to [ :edit, @author ], notice: "Author created!"
+      respond_to do |format|
+        format.html { redirect_to [ :edit, @author ], notice: "Author created!" }
+        format.turbo_stream
+      end
     else
       flash.now[:alert] = "Failed to create author!"
       render :new, status: :unprocessable_entity

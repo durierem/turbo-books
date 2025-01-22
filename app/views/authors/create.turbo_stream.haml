@@ -1,0 +1,7 @@
+%turbo-stream{ action: "append", target: "authors" }
+  %template
+    .row.d-flex.border-bottom.py-3
+      .col.fw-bold= @author.id
+      .col= @author.name
+      .col.d-flex.gap-2
+        = link_to "edit", [ :edit, @author ], class: "link-primary"
