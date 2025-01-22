@@ -1,0 +1,6 @@
+.row.d-flex.border-bottom.py-3
+  .col.fw-bold= author.id
+  .col= author.name
+  .col.d-flex.gap-2
+    = link_to "edit", [ :edit, author ], class: "link-primary"
+    = link_to "destroy", [ author ], class: "link-danger", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }

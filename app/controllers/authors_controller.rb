@@ -16,7 +16,7 @@ class AuthorsController < ApplicationController
     if @author.save
       respond_to do |format|
         format.html { redirect_to [ :edit, @author ], notice: "Author created!" }
-        format.turbo_stream
+        format.turbo_stream { render turbo_stream: turbo_stream.append("authors", @author) }
       end
     else
       flash.now[:alert] = "Failed to create author!"
