@@ -4,4 +4,5 @@
       = link_to "Authors", [ :authors ]
     %li.breadcrumb-item.active{ aria: { current: "page" } } New author
 
-= render 'form', author: @author
+%turbo-frame{ id: "new_author_frame" }
+  = render 'form', author: @author
