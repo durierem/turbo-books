@@ -3,7 +3,7 @@
 
   .d-flex.mb-3
     = form_with url: books_path, method: :get, class: "d-flex gap-2" do |f|
-      = f.search_field :q, value: params[:q], class: "form-control", placeholder: "Search..."
+      = f.search_field :q, value: params[:q], class: "form-control", placeholder: "Search...", data: { turbo_permanent: true }
       = f.submit "Search", class: "btn btn-primary"
 
   .mb-3
