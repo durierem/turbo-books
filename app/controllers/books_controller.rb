@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   def index
     @books = Book.includes(:author).all
+    @books = @books.by_name(params[:q]) if params[:q]
   end
 
   def new
