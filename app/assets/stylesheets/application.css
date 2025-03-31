@@ -73,3 +73,10 @@
   min-width: 48px;
   min-height: 10px;
 }
+
+[role="status"][busy] {
+    display: block;
+}
+[role="status"]:not([busy]) {
+    display: none;
+}
