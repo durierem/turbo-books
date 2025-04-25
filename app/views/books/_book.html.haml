@@ -1,0 +1,8 @@
+= turbo_frame_tag book, data: { turbo_permanent: true } do
+  .row.d-flex.border-bottom.py-3
+    .col.fw-bold= book.id
+    .col= book.name
+    .col= book.author.name
+    .col.d-flex.gap-2
+      = link_to "edit", [:edit, book], class: "link-primary"
+      = link_to "delete", [book], class: "link-danger", data: { turbo_method: "delete" }

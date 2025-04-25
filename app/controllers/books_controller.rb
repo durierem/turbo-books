@@ -1,6 +1,8 @@
 class BooksController < ApplicationController
+  include Pagy::Backend
+
   def index
-    @books = Book.includes(:author).all
+    @pagy, @books = pagy(Book.includes(:author).order(:id))
   end
 
   def new

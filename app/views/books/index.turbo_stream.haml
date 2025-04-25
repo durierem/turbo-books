@@ -1,0 +1,6 @@
+= turbo_stream.append 'books' do
+  = render @books
+
+- if @pagy.next
+  = turbo_stream.replace 'next_page' do
+    = turbo_frame_tag_with_loader "next_page", class: 'bg-primary', loading: 'lazy', src: books_path(page: @pagy.next, format: :turbo_stream)
