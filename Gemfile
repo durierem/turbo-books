@@ -16,6 +16,8 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Use Haml instead of ERB
 gem "haml-rails", "~> 2.1"
+# Simple and efficient pagination
+gem "pagy", "~> 9.3"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]

@@ -73,3 +73,10 @@
   min-width: 48px;
   min-height: 10px;
 }
+
+turbo-frame[busy] [role="status"] {
+  display: block;
+}
+turbo-frame:not([busy]) [role="status"] {
+  display: none;
+}
