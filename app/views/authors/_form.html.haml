@@ -1,4 +1,4 @@
-= form_with model: author do |form|
+= form_with model: author, data: { controller: "form" } do |form|
   .mb-3
     = form.label :name, class: "form-label"
     = form.text_field :name, class: "form-control"
@@ -6,11 +6,26 @@
       %p.text-danger= author.errors[:name].join(", ")
 
   .mb-3
-    = form.label :book_ids, "Books", class: "form-label"
-    = form.collection_check_boxes :book_ids, @books, :id, :name do |b|
-      .form-check
-        = b.check_box(class: "form-check-input")
-        = b.label(class: "form-check-label") do
-          = b.text
+    = turbo_frame_tag :books, class: 'd-flex justify-content-between' do
+      %fieldset.w-100
+        %legend Selected books
+        .mb-3
+          = form.collection_check_boxes :book_ids, selected_books, :id, :name do |b|
+            .form-check
+              = b.check_box(class: "form-check-input", autocomplete: "off", checked: true, data: { action: "input->form#submit", form_submitter_param: "on_books_change" })
+              = b.label(class: "form-check-label") do
+                = b.text
+      %fieldset.w-100.overflow-auto{ style: 'max-height: 300px;' }
+        %legend Available books
+        .d-inline-flex.align-items-baseline.gap-1
+          = form.label :book_ids, "Search", class: "form-label"
+          = search_field_tag :q, "Search...", value: params[:q], class: "form-control form-control-sm", autocomplete: "off", data: { action: "input->form#submit", form_submitter_param: "on_books_change", turbo_permanent: true }
+        .mb-3
+          = form.collection_check_boxes :book_ids, books - selected_books, :id, :name do |b|
+            .form-check
+              = b.check_box(class: "form-check-input", autocomplete: "off", checked: false, data: { action: "input->form#submit", form_submitter_param: "on_books_change" })
+              = b.label(class: "form-check-label") do
+                = b.text
 
   = form.submit class: "btn btn-primary"
+  = form.submit id: "on_books_change", hidden: true, formaction: url_for([:on_books_change, author]), formmethod: :get, formnovalidate: true, data: { turbo_frame: 'books' }

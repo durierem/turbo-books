@@ -4,5 +4,5 @@
       = link_to "Authors", [ :authors ]
     %li.breadcrumb-item.active{ aria: { current: "page" } }= @author.name
 
-= render 'form', author: @author
+= render 'form', author: @author, books: @books, selected_books: @selected_books
 = button_to('Delete author', [@author], method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger mt-3')
