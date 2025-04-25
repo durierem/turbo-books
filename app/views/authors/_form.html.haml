@@ -1,0 +1,16 @@
+= form_with model: author do |form|
+  .mb-3
+    = form.label :name, class: "form-label"
+    = form.text_field :name, class: "form-control"
+    - if author.errors[:name].any?
+      %p.text-danger= author.errors[:name].join(", ")
+
+  .mb-3
+    = form.label :book_ids, "Books", class: "form-label"
+    = form.collection_check_boxes :book_ids, @books, :id, :name do |b|
+      .form-check
+        = b.check_box(class: "form-check-input")
+        = b.label(class: "form-check-label") do
+          = b.text
+
+  = form.submit class: "btn btn-primary"
