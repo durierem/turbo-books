@@ -1,0 +1,7 @@
+%nav{aria: { label: "breadcrumb" } }
+  %ol.breadcrumb
+    %li.breadcrumb-item
+      = link_to "Authors", [ :authors ]
+    %li.breadcrumb-item.active{ aria: { current: "page" } } New author
+
+= render 'form', author: @author, books: @books, selected_books: @selected_books
