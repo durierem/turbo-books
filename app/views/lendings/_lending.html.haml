@@ -1,0 +1,7 @@
+.row.d-flex.border-bottom.py-3
+  .col.fw-bold= lending.id
+  .col= lending.book.name
+  .col= lending.due_at
+  .col.d-flex.gap-2
+    = link_to "edit", [:edit, lending], class: "link-primary"
+    = link_to "delete", [lending], class: "link-danger", data: { turbo_method: "delete" }

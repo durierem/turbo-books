@@ -16,7 +16,7 @@
 
 /* CANVAS DRAWER */
 #canvas {
-  transition: width .15s ease-in-out;
+  transition: width 0.15s ease-in-out;
   width: 0;
 }
 
@@ -33,7 +33,7 @@
 /* HELP DRAWER */
 
 #help {
-  transition: width .15s ease-in-out;
+  transition: width 0.15s ease-in-out;
   width: 0;
   position: fixed;
 }
@@ -59,7 +59,7 @@
 }
 
 .turbo-outline turbo-frame:hover::before {
-  content: '' attr(id) ' (' attr(src) ')';
+  content: "" attr(id) " (" attr(src) ")";
   position: fixed;
   top: 0;
   left: 0;
@@ -72,4 +72,9 @@
 .turbo-outline turbo-frame {
   min-width: 48px;
   min-height: 10px;
+}
+
+.field_with_errors input,
+.field_with_errors select {
+  outline: 1px solid red;
 }

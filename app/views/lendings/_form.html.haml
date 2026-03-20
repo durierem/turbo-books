@@ -1,0 +1,51 @@
+.row.mb-5
+  .col-4
+    = label_tag :delivery_mode
+    = select_tag :delivery_mode, options_for_select(LendingForm::DELIVERY_MODES, lending_form.delivery_mode), name: 'lending_form[delivery_mode]', class: 'form-select', form: 'lending_form', data: { controller: 'form', action: 'change->form#submit', form_submitter_param: "on_reactive_change" }
+
+= turbo_frame_tag 'lending_form_frame' do
+  = form_with id: 'lending_form', model: lending_form, url: lending_form.submit_url, method: lending_form.submit_method, data: { controller: 'form' } do |f|
+    - if lending_form.errors.any?
+      .row
+        .col
+          %ul
+            - lending_form.errors.each do |error|
+              %li.text-danger= error.full_message
+    .row
+      .col-8
+        .row.mb-3
+          .col
+            = f.label :author_id, class: 'form-label'
+            = f.collection_select :author_id, lending_form.authors, :id, :name, { include_blank: true }, { class: 'form-select', data: { action: 'change->form#submit', form_submitter_param: "on_reactive_change" } }
+          .col
+            = f.label :book_id, class: 'form-label'
+            = f.collection_select :book_id, lending_form.books, :id, :name, { include_blank: true }, { class: 'form-select', disabled: lending_form.author.blank?, data: { action: 'change->form#submit', form_submitter_param: "on_reactive_change" } }
+
+        .row.mb-3
+          - if lending_form.delivery_mode == 'PICK_UP'
+            .col
+              = f.label :delivery_pick_up_location, class: 'form-label'
+              = f.collection_select :delivery_pick_up_location, LendingForm::DELIVERY_PICK_UP_LOCATIONS, :first, :first, {}, { class: 'form-select', data: { action: 'change->form#submit', form_submitter_param: "on_reactive_change" } }
+            .col
+              = f.label :delivery_address, class: 'form-label'
+              = f.text_field :delivery_address, disabled: true, class: 'form-control', data: { action: 'change->form#submit', form_submitter_param: "on_reactive_change" }
+          - if lending_form.delivery_mode == 'DELIVERY'
+            .col
+              = f.label :delivery_address, class: 'form-label'
+              = f.text_field :delivery_address, class: 'form-control'
+
+      .col-4.overflow-visible
+        .d-flex.justify-content-between.mb-2
+          = f.label :notes
+          = button_tag type: 'submit', name: 'add_note', formmethod: :get, formaction: lending_form.url, formnovalidate: true, class: 'btn btn-sm btn-light' do
+            ➕
+        .d-flex.flex-column.gap-2
+          - lending_form.notes.each_with_index do |note, index|
+            %fieldset.input-group
+              = f.text_field :notes, multiple: true, class: 'form-control', value: note
+              = button_tag type: 'submit', name: 'remove_note', value: index, formmethod: :get, formaction: lending_form.url, formnovalidate: true, class: 'btn btn-light' do
+                ❌
+
+    .d-flex.gap-2
+      = f.submit lending_form.lending.persisted? ? 'Update lending' : 'Create lending', class: 'btn btn-primary'
+      = f.submit id: "on_reactive_change", hidden: true, formaction: lending_form.url, formmethod: :get, formnovalidate: true
